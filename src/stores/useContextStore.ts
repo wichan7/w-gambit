@@ -9,9 +9,11 @@ interface ContextAction {
   addAsset: (amount: number) => void;
 }
 
+const initialAsset = 1000;
+
 export const useContextStore = create<ContextState & ContextAction>((set) => ({
-  asset: 0,
-  clearAsset: () => set({ asset: 0 }),
+  asset: initialAsset,
+  clearAsset: () => set({ asset: initialAsset }),
   addAsset: (amount: number) =>
     set(({ asset: prevAsset }) => ({ asset: prevAsset + amount })),
 }));
