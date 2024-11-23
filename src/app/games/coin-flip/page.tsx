@@ -12,18 +12,20 @@ export default function CoinFlipPage() {
 
   const { doFlip } = new CoinFlipService();
 
-  const handleBetAmountChange = (ev: ChangeEvent<HTMLInputElement>) => {
-    const value = Number(ev.target.value);
-    if (value > asset) {
-      return alert("더 크게는 안됨");
-    }
-
-    setBetAmount(value);
+  const handleBetAmountChange = ({
+    target: { value },
+  }: ChangeEvent<HTMLInputElement>) => {
+    const changedValue = Number(value.replace(/[^0-9]/, ""));
+    setBetAmount(changedValue);
   };
 
   const handleBet = async (isFront: boolean) => {
     if (asset === 0) {
       return alert("0원은 배팅 안됨");
+    }
+
+    if (betAmount > asset) {
+      return alert("가진 돈보다 더 많이 배팅 못함");
     }
 
     const _betAmount = betAmount;
@@ -45,7 +47,7 @@ export default function CoinFlipPage() {
 
   return (
     <div>
-      <Input type="number" value={betAmount} onChange={handleBetAmountChange} />
+      <Input value={betAmount} onChange={handleBetAmountChange} />
       <Button onClick={() => handleBet(false)}>앞</Button>
       <Button variant="secondary" onClick={() => handleBet(true)}>
         뒤
