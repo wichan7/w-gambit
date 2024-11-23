@@ -1,20 +1,13 @@
-.button {
-  padding: 16px 20px;
-  border-radius: 16px;
-  border: none;
-  cursor: pointer;
+.coin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 128px;
+  background-color: gold;
 }
 
-.button:hover {
-  opacity: 0.7;
-}
-
-.primary {
-  background-color: #000000;
-  color: #fff;
-}
-
-.secondary {
-  background-color: #5f5f5f;
-  color: #fff;
+.isReverse {
+  background-color: #eee;
 }

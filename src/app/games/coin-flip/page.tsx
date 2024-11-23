@@ -1,3 +1,10 @@
+import Coin from "@/components/Coin";
+
 export default function CoinFlipPage() {
-  return <>coin-flip</>;
+  return (
+    <div>
+      <Coin />
+      <Coin isReverse />
+    </div>
+  );
 }
