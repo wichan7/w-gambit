@@ -1,13 +1,12 @@
-import style from "./index.module.css";
+import HeadSvg from "@/assets/svgs/coin-head.svg";
+import TailSvg from "@/assets/svgs/coin-tail.svg";
 
 interface CoinProps {
-  isReverse?: boolean;
+  isTail?: boolean;
 }
 
-export default function Coin({ isReverse = false }: CoinProps) {
-  return (
-    <span className={`${style.coin} ${isReverse && style.isReverse}`}>
-      {!isReverse ? "앞" : "뒤"}
-    </span>
-  );
+export function Coin({ isTail }: CoinProps) {
+  return isTail ? <TailSvg /> : <HeadSvg />;
 }
+
+export function CoinWithAnim() {}

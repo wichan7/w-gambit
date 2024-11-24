@@ -6,21 +6,25 @@ import Input from "@/components/Input";
 import CoinFlipService from "@/services/coinFlipService";
 import { useContextStore } from "@/stores/useContextStore";
 import { ChangeEvent, useState } from "react";
+import { BET_MAXIMUM_AMOUNT } from "./constant";
 
 export default function CoinFlipPage() {
-  const { asset, addAsset } = useContextStore();
   const [betAmount, setBetAmount] = useState<number>(0);
+  const { asset, addAsset } = useContextStore();
 
   const { doFlip } = new CoinFlipService();
 
   const handleBetAmountChange = ({
     target: { value },
   }: ChangeEvent<HTMLInputElement>) => {
-    const changedValue = Number(value.replace(/[^0-9]/, ""));
+    const changedValue = Math.min(
+      Number(value.replaceAll(/[^0-9]/gi, "")),
+      BET_MAXIMUM_AMOUNT
+    );
     setBetAmount(changedValue);
   };
 
-  const handleBet = async (isFront: boolean) => {
+  const handleBet = async (isTail: boolean) => {
     const _betAmount = betAmount;
 
     if (_betAmount === 0) {
@@ -31,12 +35,12 @@ export default function CoinFlipPage() {
     }
     addAsset(-_betAmount);
 
-    const { reward, isFront: resultIsFront } = await doFlip({
+    const { reward, isTail: result } = await doFlip({
       amount: _betAmount,
-      isFront,
+      isTail,
     });
 
-    if (isFront === resultIsFront) {
+    if (isTail === result) {
       addAsset(reward);
       alert("성공 야호");
     } else {

@@ -1,21 +1,21 @@
 type FlipRequest = {
   amount: number;
-  isFront: boolean;
+  isTail: boolean;
 };
 
 type FlipResult = {
   reward: number;
-  isFront: boolean;
+  isTail: boolean;
 };
 
 export default class CoinFlipService {
-  doFlip = async ({ amount, isFront }: FlipRequest) =>
+  doFlip = async ({ amount, isTail }: FlipRequest) =>
     new Promise<FlipResult>((_resolve) => {
       setTimeout(() => {
         const result = Math.random() >= 0.5;
-        const reward = result === isFront ? amount * 2 : 0;
+        const reward = result === isTail ? amount * 2 : 0;
 
-        _resolve({ reward, isFront: result });
+        _resolve({ reward, isTail: result });
       }, 1000);
     });
 }

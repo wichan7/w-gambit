@@ -1,0 +1,1 @@
+export const BET_MAXIMUM_AMOUNT = 100000000;
