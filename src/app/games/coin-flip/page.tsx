@@ -6,7 +6,7 @@ import Input from "@/components/Input";
 import CoinFlipService from "@/services/coinFlipService";
 import { useContextStore } from "@/stores/useContextStore";
 import { ChangeEvent, useState } from "react";
-import { BET_MAXIMUM_AMOUNT } from "./constant";
+import { BET_MAXIMUM_AMOUNT } from "@/constants/coin-flip";
 import { Coin, FlippingCoin } from "@/components/Coin";
 
 export default function CoinFlipPage() {
