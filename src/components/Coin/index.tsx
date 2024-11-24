@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import HeadSvg from "@/assets/svgs/coin-head.svg";
 import TailSvg from "@/assets/svgs/coin-tail.svg";
