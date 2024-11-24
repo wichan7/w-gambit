@@ -7,9 +7,13 @@ import CoinFlipService from "@/services/coinFlipService";
 import { useContextStore } from "@/stores/useContextStore";
 import { ChangeEvent, useState } from "react";
 import { BET_MAXIMUM_AMOUNT } from "./constant";
+import { Coin, FlippingCoin } from "@/components/Coin";
 
 export default function CoinFlipPage() {
   const [betAmount, setBetAmount] = useState<number>(0);
+  const [isFlipping, setIsFlipping] = useState<boolean>(false);
+  const [flipResult, setFlipResult] = useState<boolean>(false);
+
   const { asset, addAsset } = useContextStore();
 
   const { doFlip } = new CoinFlipService();
@@ -33,27 +37,38 @@ export default function CoinFlipPage() {
     if (_betAmount > asset) {
       return alert("가진 돈보다 더 많이 배팅 못함");
     }
+
     addAsset(-_betAmount);
 
+    setIsFlipping(true);
     const { reward, isTail: result } = await doFlip({
       amount: _betAmount,
       isTail,
     });
+    setIsFlipping(false);
+    setFlipResult(result);
 
     if (isTail === result) {
       addAsset(reward);
-      alert("성공 야호");
-    } else {
-      alert("실패 ㅠㅠ");
     }
   };
 
   return (
     <div className={style.container}>
-      <Input value={betAmount} onChange={handleBetAmountChange} />
+      <div className={style.coinWrapper}>
+        {isFlipping ? <FlippingCoin /> : <Coin isTail={flipResult} />}
+      </div>
+      <Input value={betAmount} maxWidth onChange={handleBetAmountChange} />
       <div className={style.buttonContainer}>
-        <Button onClick={() => handleBet(false)}>앞</Button>
-        <Button variant="secondary" onClick={() => handleBet(true)}>
+        <Button disabled={isFlipping} maxWidth onClick={() => handleBet(false)}>
+          앞
+        </Button>
+        <Button
+          disabled={isFlipping}
+          maxWidth
+          variant="secondary"
+          onClick={() => handleBet(true)}
+        >
           뒤
         </Button>
       </div>

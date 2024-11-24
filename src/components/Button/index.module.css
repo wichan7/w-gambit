@@ -9,6 +9,11 @@
   opacity: 0.7;
 }
 
+.button:disabled {
+  background-color: #eee;
+  color: #bdbdbd;
+}
+
 .primary {
   background-color: #000000;
   color: #fff;
@@ -17,4 +22,8 @@
 .secondary {
   background-color: #5f5f5f;
   color: #fff;
+}
+
+.maxWidth {
+  width: 100%;
 }

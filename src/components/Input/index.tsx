@@ -1,7 +1,14 @@
 import style from "./index.module.css";
 
-type InputProps = React.ComponentProps<"input">;
+interface InputProps extends React.ComponentProps<"input"> {
+  maxWidth?: boolean;
+}
 
-export default function Input({ ...props }: InputProps) {
-  return <input {...props} className={style.input} />;
+export default function Input({ maxWidth = false, ...props }: InputProps) {
+  return (
+    <input
+      {...props}
+      className={`${style.input} ${maxWidth && style.maxWidth}`}
+    />
+  );
 }
